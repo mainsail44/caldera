@@ -22,8 +22,7 @@ pipeline:
                   name: GitClone_1
                   identifier: GitClone_1
                   spec:
-                    connectorRef: account.Github_OAuth_1706368592187
-                    repoName: mainsail44/caldera.git --recursive
+                    connectorRef: GitHub_Connector_2
                     build:
                       type: branch
                       spec:
