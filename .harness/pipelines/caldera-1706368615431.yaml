@@ -18,24 +18,35 @@ pipeline:
           execution:
             steps:
               - step:
-                  identifier: npminstall
-                  name: npm_install
+                  type: GitClone
+                  name: GitClone_1
+                  identifier: GitClone_1
                   spec:
-                    command: npm install
-                  timeout: ""
-                  type: Run
+                    connectorRef: account.Github_OAuth_1706368592187
+                    repoName: https://github.com/mainsail44/caldera.git --recursive
+                    build:
+                      type: branch
+                      spec:
+                        branch: master
+                  description: https://github.com/mainsail44/caldera.git
               - step:
-                  identifier: dockerbuild
-                  name: docker_build
+                  type: BuildAndPushDockerRegistry
+                  name: BuildAndPushDockerRegistry_1
+                  identifier: BuildAndPushDockerRegistry_1
                   spec:
                     connectorRef: account.harnessImage
-                    image: plugins/docker
-                    settings:
-                      dry_run: "true"
-                      repo: hello/world
-                      tags: latest
-                  timeout: ""
-                  type: Plugin
+                    repo: mainsailindustries / caldera
+                    tags:
+                      - latest
+                    buildArgs:
+                      WIN_BUILD: "true"
+              - step:
+                  type: Run
+                  name: Run_1
+                  identifier: Run_1
+                  spec:
+                    shell: Sh
+                    command: docker run -p 8888:8888 caldera:latest
           platform:
             os: MacOS
             arch: Amd64
