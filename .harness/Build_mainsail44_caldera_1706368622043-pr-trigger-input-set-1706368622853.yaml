@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_mainsail44_caldera_1706368622043-pr-trigger-input-set
+  identifier: Build_mainsail44_caldera_1706368622043prtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: default_project
+  pipeline:
+    identifier: Build_mainsail44_caldera_1706368622043
+    properties:
+      ci:
+        codebase:
+          build:
+            type: PR
+            spec:
+              number: <+trigger.prNumber>
