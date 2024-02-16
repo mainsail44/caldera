@@ -11,6 +11,9 @@ DEFAULT_OBJECTIVE_ID = '495a9828-cab1-44dd-a0ca-66e58177d8cc'
 
 class AdversarySchema(ma.Schema):
 
+    class Meta:
+        unknown = ma.EXCLUDE
+
     adversary_id = ma.fields.String()
     name = ma.fields.String()
     description = ma.fields.String()
@@ -18,7 +21,7 @@ class AdversarySchema(ma.Schema):
     objective = ma.fields.String()
     tags = ma.fields.List(ma.fields.String(), allow_none=True)
     has_repeatable_abilities = ma.fields.Boolean(dump_only=True)
-    plugin = ma.fields.String(missing=None)
+    plugin = ma.fields.String(load_default=None)
 
     @ma.pre_load
     def fix_id(self, adversary, **_):
